@@ -1,0 +1,12 @@
+name: Must run on custom runner
+
+on: push
+
+jobs:
+  init:
+    runs-on: self-hosted
+    seteps:
+      - run: echo 'hello colud gurus'
+      - run: echo $HOSTNAME
+      
+     
