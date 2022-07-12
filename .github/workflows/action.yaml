@@ -5,7 +5,7 @@ on: push
 jobs:
   init:
     runs-on: self-hosted
-    seteps:
+    steps:
       - run: echo 'hello colud gurus'
       - run: echo $HOSTNAME
       
