@@ -22,7 +22,7 @@ jobs:
       - name: Check if current_step exist
         id: check_current_step
         run: |
-          if [ ! -f "$CURRENT_STEP" ]
+          if [ ! -f "$CURRENT_STEP_FILE" ]
           then
             echo 1 >> "$CURRENT_STEP_FILE"
             git checkout -b $NEW_BRANCH_NAME
