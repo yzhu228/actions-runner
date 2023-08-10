@@ -1,0 +1,38 @@
+name: main workflow, basic
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  the_first_job:
+    name: the first job in a workflow
+    runs-on: ubuntu-latest
+    env:
+      CURRENT_STEP_FILE: ./.github/workflows/current_step
+    steps:
+      - name: Checkout
+        uses: actions/checkout/@v3
+      - name:
+      - name: Check if current_step exist
+        id: check_current_step
+        run: |
+          [ ! -f "$CURRENT_STEP" ] && echo 1 >> "$CURRENT_STEP_FILE"
+      - name: Get current step
+        id: get_step
+        run: |
+          echo "current_step=$(cat $CURRENT_STEP_FILE)" >> $GITHUB_OUTPUT
+    outputs:
+      current_step: ${{ steps.get_step.outputs.current_step }}
+
+  the_second_job:
+    name: the 2nd job - show output from the first
+    needs: the_first_job
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout/@v3
+      - name: Show output from the first
+        run: echo ${{ needs.the_first_job.outputs.current_step }}
