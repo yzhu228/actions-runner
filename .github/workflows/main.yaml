@@ -32,6 +32,8 @@ jobs:
 
             git push -u origin $NEW_BRANCH_NAME
           fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Get current step
         id: get_step
