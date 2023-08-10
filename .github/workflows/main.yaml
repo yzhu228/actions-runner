@@ -15,7 +15,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout/@v3
-      - name:
       - name: Check if current_step exist
         id: check_current_step
         run: |
