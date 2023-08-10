@@ -6,11 +6,6 @@ on:
     branches:
       - main
 
-permissions:
-  contents: write
-  actions: write
-  workflows: write
-
 jobs:
   the_first_job:
     name: the first job in a workflow
@@ -21,6 +16,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout/@v3
+
       - name: Check if current_step exist
         id: check_current_step
         run: |
@@ -37,8 +33,6 @@ jobs:
 
             git push -u origin $NEW_BRANCH_NAME
           fi
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Get current step
         id: get_step
