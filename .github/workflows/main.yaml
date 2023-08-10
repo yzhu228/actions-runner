@@ -12,13 +12,27 @@ jobs:
     runs-on: ubuntu-latest
     env:
       CURRENT_STEP_FILE: ./.github/workflows/current_step
+      NEW_BRANCH_NAME: welcome-workflow
     steps:
       - name: Checkout
         uses: actions/checkout/@v3
       - name: Check if current_step exist
         id: check_current_step
         run: |
-          [ ! -f "$CURRENT_STEP" ] && echo 1 >> "$CURRENT_STEP_FILE"
+          if [ ! -f "$CURRENT_STEP" ]
+          then
+            echo 1 >> "$CURRENT_STEP_FILE"
+            git checkout -b $NEW_BRANCH_NAME
+            git branch
+
+            git config user.name github-actions
+            git config user.email github-actions@github.com
+            git add .
+            git commit --allow-empty -m "Create $CURRENT_STEP_FILE"
+
+            git push -u origin $NEW_BRANCH_NAME
+          fi
+
       - name: Get current step
         id: get_step
         run: |
