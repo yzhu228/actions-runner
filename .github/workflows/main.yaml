@@ -16,6 +16,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout/@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Check if current_step exist
         id: check_current_step
@@ -33,6 +35,8 @@ jobs:
 
             git push -u origin $NEW_BRANCH_NAME
           fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Get current step
         id: get_step
