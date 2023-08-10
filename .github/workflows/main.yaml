@@ -2,11 +2,14 @@ name: main workflow, basic
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - main
 
 permissions:
   contents: write
   actions: write
-
+  workflows: write
 
 jobs:
   the_first_job:
