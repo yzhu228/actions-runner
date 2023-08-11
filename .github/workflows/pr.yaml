@@ -11,6 +11,7 @@ jobs:
   a_pr_job:
     name: the first job in PR workflow
     runs-on: ubuntu-latest
+    if: contains(github.event.pull_request.labels.*.name, 'final') && !contains(github.event.pull_request.labels.*.name, 'wip')
     steps:
       - name: show something
         run: echo "in a step of PR job"
