@@ -1,0 +1,16 @@
+name: PR workflow, basic
+
+on:
+  pull_request:
+    types:
+      - labeled
+    branches:
+      - main
+
+jobs:
+  a_pr_job:
+    name: the first job in PR workflow
+    runs-on: ubuntu-latest
+    steps:
+      - name: show something
+        run: echo "in a step of PR job"
