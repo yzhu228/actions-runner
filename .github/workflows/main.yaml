@@ -5,6 +5,11 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
+    types:
+      - labeled
 
 jobs:
   the_first_job:
