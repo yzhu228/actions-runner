@@ -18,6 +18,12 @@ jobs:
     steps:
       - name: show something
         run: echo "in a step of PR job"
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: my-artifact
+          path: ././github/workflows/current_step
+          retention-days: 7
 
   fails_a_build:
     name: fail a WIP pr build
