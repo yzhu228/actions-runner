@@ -13,7 +13,6 @@ jobs:
   a_pr_job:
     name: the first job in PR workflow
     runs-on: ubuntu-latest
-    needs: fails_a_build
     steps:
       - name: show something
         run: echo "in a step of PR job"
