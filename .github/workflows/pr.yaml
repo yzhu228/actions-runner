@@ -21,9 +21,13 @@ jobs:
   fails_a_build:
     name: fail a WIP pr build
     runs-on: ubuntu-latest
-    if: contains(github.event.pull_request.labels.*.name, 'wip')
+    needs: a_pr_job
+    env:
+      IS_WIP_PR: ${{ contains(github.event.pull_request.labels.*.name, 'wip') }}
     steps:
       - name: fail job
-        run: exit 1
+        run: |
+          echo $IS_WIP_PR
+          [ $IS_WIP_PR == 'true'] && exit 1
 
 
