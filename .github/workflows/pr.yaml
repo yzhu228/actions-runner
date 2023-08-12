@@ -22,7 +22,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: my-artifact
-          path: .github/workflows/current_step
+          path: ${{ github.workspace }}/.github/workflows/current_step
           retention-days: 7
 
   fails_a_build:
