@@ -4,14 +4,26 @@ on:
   pull_request:
     types:
       - labeled
+      - opened
     branches:
       - main
 
 jobs:
+
+  fails_a_build:
+    name: fail a WIP pr build
+    runs-on: ubuntu-latest
+    if: contains(github.event.pull_request.labels.*.name, 'wip')
+    steps:
+      - name: fail job
+        run: exit 1
+
   a_pr_job:
     name: the first job in PR workflow
     runs-on: ubuntu-latest
-    if: contains(github.event.pull_request.labels.*.name, 'final') && !contains(github.event.pull_request.labels.*.name, 'wip')
+    needs: fails_a_build
+    if: contains(github.event.pull_request.labels.*.name, 'final')
     steps:
       - name: show something
         run: echo "in a step of PR job"
+
