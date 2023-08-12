@@ -28,6 +28,7 @@ jobs:
       - name: fail job
         run: |
           echo "$IS_WIP_PR"
-          [ "$IS_WIP_PR" == "true" ] && exit 1
+          [ "$IS_WIP_PR" == "true" ] && exit 1 || exit 0
+
 
 
