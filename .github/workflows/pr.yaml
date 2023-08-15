@@ -4,14 +4,40 @@ on:
   pull_request:
     types:
       - labeled
+      - unlabeled
+      - opened
+      - synchronize
     branches:
       - main
 
 jobs:
+
   a_pr_job:
     name: the first job in PR workflow
     runs-on: ubuntu-latest
-    if: contains(github.event.pull_request.labels.*.name, 'final') && !contains(github.event.pull_request.labels.*.name, 'wip')
     steps:
+      - name: Checkout
+        uses: actions/checkout/@v3
       - name: show something
         run: echo "in a step of PR job"
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: my-artifact
+          path: ${{ github.workspace }}/.github/workflows/current_step
+          retention-days: 7
+
+  fails_a_build:
+    name: fail a WIP pr build
+    runs-on: ubuntu-latest
+    needs: a_pr_job
+    env:
+      IS_WIP_PR: ${{ contains(github.event.pull_request.labels.*.name, 'wip') }}
+    steps:
+      - name: fail job
+        run: |
+          echo "$IS_WIP_PR"
+          [ "$IS_WIP_PR" == "true" ] && exit 1 || echo "PR build succeeds."
+
+
+
